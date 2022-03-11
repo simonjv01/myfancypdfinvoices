@@ -1,2 +1,4 @@
+com/model/Invoice.class
+com/service/InvoiceService.class
+com/web/MyFancyPdfInvoicesServlet.class
 com/ApplicationLauncher.class
-com/MyFirstServlet.class

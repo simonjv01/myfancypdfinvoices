@@ -1,2 +1,4 @@
-/Users/simonvargas/Dev/javaprojects/myfancypdfinvoices/src/main/java/com/MyFirstServlet.java
+/Users/simonvargas/Dev/javaprojects/myfancypdfinvoices/src/main/java/com/web/MyFancyPdfInvoicesServlet.java
+/Users/simonvargas/Dev/javaprojects/myfancypdfinvoices/src/main/java/com/service/InvoiceService.java
+/Users/simonvargas/Dev/javaprojects/myfancypdfinvoices/src/main/java/com/model/Invoice.java
 /Users/simonvargas/Dev/javaprojects/myfancypdfinvoices/src/main/java/com/ApplicationLauncher.java
