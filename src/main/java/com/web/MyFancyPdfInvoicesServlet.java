@@ -1,5 +1,6 @@
 package com.web;
 
+import com.context.Application;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Invoice;
 
@@ -23,10 +24,10 @@ public class MyFancyPdfInvoicesServlet extends HttpServlet {
             Integer amount = Integer.valueOf(request.getParameter("amount"));
             String urlPdf = request.getParameter("\"https://www.africau.edu/images/default/sample.pdf\"");
 
-            Invoice invoice = invoiceService.create(userId, amount, urlPdf);
+            Invoice invoice = invoiceService.create(userId, amount);
 
             response.setContentType("application/json; charset=UTF-8");
-            String json = new ObjectMapper().writeValueAsString(invoice);
+            String json = objectMapper.writeValueAsString(invoice);
             response.getWriter().print(json);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
