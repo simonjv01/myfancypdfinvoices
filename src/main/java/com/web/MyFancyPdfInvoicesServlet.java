@@ -2,7 +2,6 @@ package com.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Invoice;
-import com.service.InvoiceService;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +9,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static com.context.Application.invoiceService;
+import static com.context.Application.objectMapper;
+
 public class MyFancyPdfInvoicesServlet extends HttpServlet {
 
-    private InvoiceService invoiceService = new InvoiceService();
-    private ObjectMapper objectMapper = new ObjectMapper();
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (request.getRequestURI().equalsIgnoreCase("/invoices")) {
+
+            String userId = request.getParameter("user_id");
+            Integer amount = Integer.valueOf(request.getParameter("amount"));
+            String urlPdf = request.getParameter("\"https://www.africau.edu/images/default/sample.pdf\"");
+
+            Invoice invoice = invoiceService.create(userId, amount, urlPdf);
+
+            response.setContentType("application/json; charset=UTF-8");
+            String json = new ObjectMapper().writeValueAsString(invoice);
+            response.getWriter().print(json);
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -36,22 +54,6 @@ public class MyFancyPdfInvoicesServlet extends HttpServlet {
 
 }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (request.getRequestURI().equalsIgnoreCase("/invoices")) {
 
-            String userId = request.getParameter("user_id");
-            Integer amount = Integer.valueOf(request.getParameter("amount"));
-            String urlPdf = request.getParameter("\"https://www.africau.edu/images/default/sample.pdf\"");
-
-            Invoice invoice = invoiceService.create(userId, amount, urlPdf);
-
-            response.setContentType("application/json; charset=UTF-8");
-            String json = new ObjectMapper().writeValueAsString(invoice);
-            response.getWriter().print(json);
-        } else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
-    }
 }
 
