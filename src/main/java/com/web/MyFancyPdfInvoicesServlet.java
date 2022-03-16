@@ -1,19 +1,33 @@
 package com.web;
 
-import com.context.Application;
+import com.context.MyFancyPdfInvoicesApplicationConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Invoice;
+import com.service.InvoiceService;
+import com.service.UserService;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.context.Application.invoiceService;
-import static com.context.Application.objectMapper;
 
 public class MyFancyPdfInvoicesServlet extends HttpServlet {
+
+    private UserService userService;
+    private ObjectMapper objectMapper;
+    private InvoiceService invoiceService;
+
+    public void init() throws ServletException {
+        AnnotationConfigApplicationContext ctx
+                = new AnnotationConfigApplicationContext(MyFancyPdfInvoicesApplicationConfiguration.class);
+        this.userService = ctx.getBean(UserService.class);
+        this.objectMapper = ctx.getBean(ObjectMapper.class);
+        this.invoiceService = ctx.getBean(InvoiceService.class);
+    }
 
 
     @Override
@@ -22,7 +36,7 @@ public class MyFancyPdfInvoicesServlet extends HttpServlet {
 
             String userId = request.getParameter("user_id");
             Integer amount = Integer.valueOf(request.getParameter("amount"));
-            String urlPdf = request.getParameter("\"https://www.africau.edu/images/default/sample.pdf\"");
+
 
             Invoice invoice = invoiceService.create(userId, amount);
 

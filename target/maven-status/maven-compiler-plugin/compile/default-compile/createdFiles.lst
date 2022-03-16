@@ -1,5 +1,7 @@
 com/model/Invoice.class
-com/context/Application.class
-com/service/InvoiceService.class
 com/web/MyFancyPdfInvoicesServlet.class
 com/ApplicationLauncher.class
+com/context/MyFancyPdfInvoicesApplicationConfiguration.class
+com/service/UserService.class
+com/service/InvoiceService.class
+com/model/User.class
