@@ -5,6 +5,8 @@ import com.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -16,6 +18,18 @@ public class InvoiceService {
 
 
     private final UserService userService;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Fetching PDF Template from S3...");
+        // TODO download from s3 and save locally
+    }
+
+    @PreDestroy
+    public void shutdown() {
+        System.out.println("Deleting download templates...");
+        // TODO actual deletion of PDFs
+    }
 
     @Autowired
     public InvoiceService(UserService userService) {
