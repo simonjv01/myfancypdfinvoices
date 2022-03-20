@@ -2,6 +2,7 @@ package com.service;
 
 import com.model.Invoice;
 import com.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,16 +11,22 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Component
 public class InvoiceService {
 
-    private final UserService userService;
+
     List<Invoice> invoices = new CopyOnWriteArrayList<>();
+
+
+    private final UserService userService;
+
+    @Autowired
+    public InvoiceService(UserService userService) {
+        this.userService = userService;
+    }
 
     public List<Invoice> findAll() {
         return invoices;
     }
 
-    public InvoiceService(UserService userService) {
-        this.userService = userService;
-    }
+
 
     public Invoice create(String userId, Integer amount) {
         User user = userService.findById(userId);
@@ -32,4 +39,6 @@ public class InvoiceService {
         invoices.add(invoice);
         return invoice;
     }
+
+
 }
