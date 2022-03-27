@@ -3,6 +3,7 @@ package com.service;
 import com.model.Invoice;
 import com.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +19,12 @@ public class InvoiceService {
 
 
     private final UserService userService;
+    private String cdnUrl;
+
+    public InvoiceService(UserService userService, @Value("${cdn.url}")String cdnUrl) {
+        this.userService = userService;
+        this.cdnUrl = cdnUrl;
+    }
 
     @PostConstruct
     public void init() {
@@ -31,10 +38,10 @@ public class InvoiceService {
         // TODO actual deletion of PDFs
     }
 
-    @Autowired
-    public InvoiceService(UserService userService) {
-        this.userService = userService;
-    }
+//    @Autowired
+//    public InvoiceService(UserService userService) {
+//        this.userService = userService;
+//    }
 
     public List<Invoice> findAll() {
         return invoices;
@@ -49,7 +56,7 @@ public class InvoiceService {
         }
 
         //TODO real pdf creation and storing it on network server
-        Invoice invoice = new Invoice(userId, amount, "https://www.africau.edu/images/default/sample.pdf");
+        Invoice invoice = new Invoice(userId, amount, cdnUrl + "/images/default/sample.pdf");
         invoices.add(invoice);
         return invoice;
     }

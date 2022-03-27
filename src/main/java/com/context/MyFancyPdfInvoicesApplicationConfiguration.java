@@ -7,20 +7,13 @@ import com.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan(basePackageClasses = ApplicationLauncher.class)
+@PropertySource("classpath:/application.properties")
+//@PropertySource("classpath:/someOtherFile.properties")
 public class MyFancyPdfInvoicesApplicationConfiguration {
-
-//    @Bean
-//    public UserService userService() {
-//        return new UserService();
-//    }
-//
-//    @Bean
-//    public InvoiceService invoiceService(UserService userService) {
-//        return new InvoiceService(userService);
-//    }
 
     @Bean
     public ObjectMapper objectMapper() {
