@@ -1,5 +1,6 @@
 package com.web;
 
+
 import com.context.MyFancyPdfInvoicesApplicationConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Invoice;

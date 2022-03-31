@@ -1,17 +1,15 @@
 package com;
 
+
 import com.context.MyFancyPdfInvoicesApplicationConfiguration;
-import com.web.MyFancyPdfInvoicesServlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.startup.Tomcat;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
 public class ApplicationLauncher {
@@ -26,7 +24,7 @@ public class ApplicationLauncher {
 
         WebApplicationContext appCtx = createApplicationContext(tomcatCtx.getServletContext());
         DispatcherServlet dispatcherServlet = new DispatcherServlet(appCtx);
-        Wrapper servlet = Tomcat.addServlet(tomcatCtx, "myFirstServlet", new MyFancyPdfInvoicesServlet());
+        Wrapper servlet = Tomcat.addServlet(tomcatCtx, "dispatcherServlet", dispatcherServlet);
         servlet.setLoadOnStartup(1);
         servlet.addMapping("/*");
 
